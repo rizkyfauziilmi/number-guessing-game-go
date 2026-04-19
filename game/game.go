@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strings"
+	"time"
 )
 
 type Game struct {
@@ -24,6 +25,8 @@ func NewGame(difficulty int, reader *bufio.Reader) *Game {
 }
 
 func (g *Game) Play() {
+	startTime := time.Now()
+
 	for g.Chances > 0 {
 		fmt.Printf("\nYou have %d chances left. Enter your guess: ", g.Chances)
 
@@ -51,14 +54,17 @@ func (g *Game) Play() {
 		}
 	}
 
-	g.printResult()
+	duration := time.Since(startTime)
+	g.printResult(duration)
 }
 
-func (g *Game) printResult() {
+func (g *Game) printResult(duration time.Duration) {
 	if g.IsWinning {
-		fmt.Printf("\nCongratulations! You guessed the correct number in %d attempts.\n", g.Attempts)
+		fmt.Printf("\n🎉 Congratulations! You guessed the correct number in %d attempts.\n", g.Attempts)
+		fmt.Printf("⏱️ Time taken: %s\n", duration)
 	} else {
-		fmt.Printf("\nGame Over! The secret number was %d.\n", g.SecretNumber)
+		fmt.Printf("\n💀 Game Over! The secret number was %d.\n", g.SecretNumber)
+		fmt.Printf("⏱️ Time taken: %s\n", duration)
 	}
 }
 
