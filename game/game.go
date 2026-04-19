@@ -14,6 +14,8 @@ type Game struct {
 	Attempts     int
 	Reader       *bufio.Reader
 	IsWinning    bool
+	Difficulty   int
+	HintUsed     bool
 }
 
 func NewGame(difficulty int, reader *bufio.Reader) *Game {
@@ -21,6 +23,51 @@ func NewGame(difficulty int, reader *bufio.Reader) *Game {
 		SecretNumber: rand.Intn(100) + 1,
 		Chances:      DifficultyToChances[difficulty],
 		Reader:       reader,
+		Difficulty:   difficulty,
+	}
+}
+
+func (g *Game) shouldGiveHint() bool {
+	switch g.Difficulty {
+	case Easy:
+		return g.Attempts >= 6
+	case Medium:
+		return g.Attempts >= 3
+	case Hard:
+		return g.Attempts >= 2
+	default:
+		return false
+	}
+}
+
+func (g *Game) giveHint() {
+	if g.HintUsed || !g.shouldGiveHint() {
+		return
+	}
+
+	g.HintUsed = true
+
+	fmt.Println("\n💡 Hint:")
+
+	// Hint 1: selalu ada
+	if g.SecretNumber%2 == 0 {
+		fmt.Println("- The number is EVEN")
+	} else {
+		fmt.Println("- The number is ODD")
+	}
+
+	// Hint 2: hanya untuk Easy & Medium
+	if g.Difficulty != Hard {
+		switch {
+		case g.SecretNumber <= 25:
+			fmt.Println("- Range: 1-25")
+		case g.SecretNumber <= 50:
+			fmt.Println("- Range: 26-50")
+		case g.SecretNumber <= 75:
+			fmt.Println("- Range: 51-75")
+		default:
+			fmt.Println("- Range: 76-100")
+		}
 	}
 }
 
@@ -43,6 +90,8 @@ func (g *Game) Play() {
 
 		g.Attempts++
 		g.Chances--
+
+		g.giveHint()
 
 		if guess == g.SecretNumber {
 			g.IsWinning = true
