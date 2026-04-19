@@ -108,12 +108,26 @@ func (g *Game) Play() {
 }
 
 func (g *Game) printResult(duration time.Duration) {
+	scores := LoadHighScores()
+
 	if g.IsWinning {
-		fmt.Printf("\n🎉 Congratulations! You guessed the correct number in %d attempts.\n", g.Attempts)
-		fmt.Printf("⏱️ Time taken: %s\n", duration)
+		fmt.Printf("\n🎉 You won in %d attempts!\n", g.Attempts)
+		fmt.Printf("⏱️ Time: %s\n", duration)
+
+		// key difficulty
+		best := scores[g.Difficulty]
+
+		if best == 0 || g.Attempts < best {
+			scores[g.Difficulty] = g.Attempts
+			SaveHighScores(scores)
+
+			fmt.Println("🏆 NEW HIGH SCORE!")
+		} else {
+			fmt.Printf("🏆 Best score for this level: %d attempts\n", best)
+		}
+
 	} else {
-		fmt.Printf("\n💀 Game Over! The secret number was %d.\n", g.SecretNumber)
-		fmt.Printf("⏱️ Time taken: %s\n", duration)
+		fmt.Printf("\n💀 Game Over! The number was %d\n", g.SecretNumber)
 	}
 }
 

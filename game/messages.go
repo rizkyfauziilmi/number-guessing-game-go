@@ -15,7 +15,15 @@ func DisplayWelcomeMessage() {
 }
 
 func DisplayStartMessage(difficulty string) {
+	scores := LoadHighScores()
+
 	fmt.Println()
 	fmt.Printf("Great! You have selected the %s difficulty level.\n", difficulty)
-	fmt.Println("Let's start the game!")
+
+	fmt.Println("🏆 Best Scores:")
+	fmt.Printf("- Easy: %d\n", scores[Easy])
+	fmt.Printf("- Medium: %d\n", scores[Medium])
+	fmt.Printf("- Hard: %d\n", scores[Hard])
+
+	fmt.Println("\nLet's start the game!")
 }

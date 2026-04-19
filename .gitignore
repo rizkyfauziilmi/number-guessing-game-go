@@ -43,3 +43,6 @@ coverage.out
 # Temporary files
 *.tmp
 *.swp
+
+# generated file
+highscore.json
