@@ -97,9 +97,9 @@ func (g *Game) Play() {
 			g.IsWinning = true
 			break
 		} else if guess > g.SecretNumber {
-			fmt.Printf("Incorrect! The number is less than %d.\n", guess)
+			fmt.Printf("❌ Incorrect! Go lower ⬇️ than %d\n", guess)
 		} else {
-			fmt.Printf("Incorrect! The number is greater than %d.\n", guess)
+			fmt.Printf("❌ Incorrect! Go higher ⬆️ than %d\n", guess)
 		}
 	}
 
