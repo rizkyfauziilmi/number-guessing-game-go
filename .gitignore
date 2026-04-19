@@ -1,0 +1,45 @@
+
+# Executables
+number-guessing-game-go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build output
+/bin/
+/dist/
+/build/
+
+# Go test artifacts
+*.test
+*.out
+
+# Go modules vendor folder
+vendor/
+
+# IDE / Editor configs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Coverage output
+coverage.out
+
+# Temporary files
+*.tmp
+*.swp

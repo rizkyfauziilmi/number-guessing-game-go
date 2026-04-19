@@ -34,6 +34,5 @@ func main() {
 		fmt.Println("Invalid choice. Please select 1, 2, or 3.")
 	}
 
-	g := game.NewGame(difficulty, reader)
-	g.Play()
+	game.PlayWithReplay(difficulty, reader)
 }

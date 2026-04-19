@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"math/rand"
+	"strings"
 )
 
 type Game struct {
@@ -58,5 +59,22 @@ func (g *Game) printResult() {
 		fmt.Printf("\nCongratulations! You guessed the correct number in %d attempts.\n", g.Attempts)
 	} else {
 		fmt.Printf("\nGame Over! The secret number was %d.\n", g.SecretNumber)
+	}
+}
+
+func PlayWithReplay(difficulty int, reader *bufio.Reader) {
+	for {
+		game := NewGame(difficulty, reader)
+		game.Play()
+
+		fmt.Print("\nDo you want to play again? (y/n): ")
+
+		input, _ := reader.ReadString('\n')
+		input = strings.TrimSpace(strings.ToLower(input))
+
+		if input != "y" {
+			fmt.Println("Thanks for playing! 👋")
+			break
+		}
 	}
 }
