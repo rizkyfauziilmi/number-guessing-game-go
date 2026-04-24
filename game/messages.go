@@ -2,6 +2,13 @@ package game
 
 import "fmt"
 
+func formatScore(score int) string {
+	if score == 0 {
+		return "-"
+	}
+	return fmt.Sprintf("%d", score)
+}
+
 func DisplayWelcomeMessage() {
 	fmt.Println("Welcome to the Number Guessing Game!")
 	fmt.Println("I'm thinking of a number between 1 and 100.")
@@ -21,9 +28,9 @@ func DisplayStartMessage(difficulty string) {
 	fmt.Printf("Great! You have selected the %s difficulty level.\n", difficulty)
 
 	fmt.Println("🏆 Best Scores:")
-	fmt.Printf("- Easy: %d\n", scores[Easy])
-	fmt.Printf("- Medium: %d\n", scores[Medium])
-	fmt.Printf("- Hard: %d\n", scores[Hard])
+	fmt.Printf("- Easy: %s\n", formatScore(scores[Easy]))
+	fmt.Printf("- Medium: %s\n", formatScore(scores[Medium]))
+	fmt.Printf("- Hard: %s\n", formatScore(scores[Hard]))
 
 	fmt.Println("\nLet's start the game!")
 }
